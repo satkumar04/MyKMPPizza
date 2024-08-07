@@ -27,7 +27,13 @@ dependencies {
     implementation(Versions.Jvm.KTOR_AUTH)
     implementation(Versions.Jvm.KTOR_WEB_SOCKETS)
     implementation(Versions.Jvm.KTOR_CLIENT_APACHE)
-
+    implementation(Versions.Jvm.JETBRAINS_EXPOSED_CORE)
+    implementation(Versions.Jvm.JETBRAINS_EXPOSED_DAO)
+    implementation(Versions.Jvm.JETBRAINS_EXPOSED_JDBC)
+    implementation(Versions.Jvm.POSTGRESQL)
+    implementation(Versions.Jvm.HIKARI_CONNECTION_POOL)
+    implementation(Versions.Jvm.KOIN_KTOR)
+    implementation(Versions.Jvm.KOIN_KTOR_LOGGER)
 }
 
 tasks.withType<ShadowJar> {
