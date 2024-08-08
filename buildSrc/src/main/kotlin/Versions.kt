@@ -7,6 +7,8 @@ object Versions {
     const val HIKARI_VERSION = "5.1.0"
     const val KOIN_VERSION = "3.5.6"
     const val KOIN_KTOR_VERSION = "4.0.0-RC1"
+    const val KOTLIN_VERSION = "2.0.10"
+    const val SERIALIZE_VERSION = "1.6.0"
     object Jvm {
         const val KTOR_AUTH = "io.ktor:ktor-server-auth:$KTOR_VERSION"
         const val KTOR_WEB_SOCKETS = "io.ktor:ktor-websockets:$KTOR_VERSION"
@@ -24,5 +26,8 @@ object Versions {
         const val POSTGRESQL = "org.postgresql:postgresql:$POSTGRESQL_VERSION"
         const val KOIN_KTOR = "io.insert-koin:koin-ktor:$KOIN_KTOR_VERSION"
         const val KOIN_KTOR_LOGGER = "io.insert-koin:koin-logger-slf4j:$KOIN_VERSION"
+        const val SERIALIZE = "org.jetbrains.kotlinx:kotlinx-serialization-json:$SERIALIZE_VERSION"
+
+
     }
 }

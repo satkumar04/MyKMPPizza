@@ -1,4 +1,6 @@
+import Versions.KTOR_VERSION
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+
 
 
 
@@ -11,6 +13,8 @@ plugins {
     kotlin("jvm")
     application
     id("com.github.johnrengelman.shadow") version Versions.SHADOW_JAR_VERSION
+    kotlin("plugin.serialization") version Versions.KOTLIN_VERSION
+   // kotlin("plugin.serialization") version "1.9.22"
 }
 
 
@@ -34,6 +38,9 @@ dependencies {
     implementation(Versions.Jvm.HIKARI_CONNECTION_POOL)
     implementation(Versions.Jvm.KOIN_KTOR)
     implementation(Versions.Jvm.KOIN_KTOR_LOGGER)
+    implementation(Versions.Jvm.SERIALIZE)
+    implementation(libs.ktor.client.content.negotiation)
+    implementation("io.ktor:ktor-serialization-kotlinx-json:$KTOR_VERSION")
 }
 
 tasks.withType<ShadowJar> {

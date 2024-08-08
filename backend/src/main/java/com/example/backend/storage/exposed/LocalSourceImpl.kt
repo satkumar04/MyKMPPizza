@@ -1,12 +1,18 @@
 package com.example.backend.storage.exposed
 
+import com.example.backend.model.Ingredient
+import com.example.backend.model.Instruction
+import com.example.backend.model.Recipe
+import com.example.backend.storage.exposed.ingridient.IngredientEntity
 import com.example.backend.storage.exposed.ingridient.IngredientTable
+import com.example.backend.storage.exposed.instruction.InstructionEntity
 import com.example.backend.storage.exposed.instruction.InstructionTable
+import com.example.backend.storage.exposed.recipe.RecipeEntity
 import com.example.backend.storage.exposed.recipe.RecipeTable
+import com.example.backend.storage.exposed.recipe.toRecipe
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import io.ktor.server.application.Application
-
 import io.ktor.server.application.log
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.ObsoleteCoroutinesApi
@@ -51,4 +57,61 @@ internal class LocalSourceImpl(application: Application) : LocalSource {
     override suspend fun getPizza(): String = withContext(dispatcher) {
         "Pizza!"
     }
+
+    override suspend fun addIngredient(recipeId: Long, ingredient: Ingredient) = withContext(dispatcher) {
+        transaction {
+            val recipe = RecipeEntity[recipeId.toInt()]
+            IngredientEntity.new {
+                name = ingredient.name
+                amount = ingredient.amount.toBigDecimal()
+                metric = ingredient.metric
+                this.recipe = recipe
+            }.id.value.toLong()
+        }
+    }
+
+    override suspend fun addInstruction(recipeId: Long, instruction: Instruction) = withContext(dispatcher) {
+        transaction {
+            val recipe = RecipeEntity[recipeId.toInt()]
+            InstructionEntity.new {
+                order = instruction.order
+                description = instruction.description
+                this.recipe = recipe
+            }.id.value.toLong()
+        }
+    }
+
+    override suspend fun addRecipe(recipe: Recipe) = withContext(dispatcher) {
+        withContext(dispatcher) {
+            val recipeId = transaction {
+                RecipeEntity.new {
+                    title = recipe.title
+                }.id.value.toLong()
+            }
+
+            recipe.ingredients.forEach{
+                addIngredient(recipeId, it)
+            }
+
+            recipe.instructions.forEach{
+                addInstruction(recipeId, it)
+            }
+            recipeId
+        }
+    }
+
+    override suspend fun getRecipes() : List<Recipe> = withContext(dispatcher) {
+        transaction {
+            RecipeEntity.all().map { it.toRecipe() }
+        }
+    }
+
+    override suspend fun getRecipe(recipeId: Long): Recipe = withContext(dispatcher) {
+        transaction {
+            RecipeEntity[recipeId.toInt()].toRecipe()
+        }
+    }
+
+
+
 }

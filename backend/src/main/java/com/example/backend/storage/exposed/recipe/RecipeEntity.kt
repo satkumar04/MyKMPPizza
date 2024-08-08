@@ -1,6 +1,7 @@
 package com.example.backend.storage.exposed.recipe
 
 import com.example.backend.model.Recipe
+import com.example.backend.model.RecipeResponse
 import com.example.backend.storage.exposed.ingridient.IngredientEntity
 import com.example.backend.storage.exposed.ingridient.IngredientTable
 import com.example.backend.storage.exposed.ingridient.toIngredient
@@ -17,6 +18,7 @@ class RecipeEntity(id: EntityID<Int>) : IntEntity(id) {
     var title by RecipeTable.title
     val ingredients by IngredientEntity referrersOn IngredientTable.recipe
     val instructions by InstructionEntity referrersOn InstructionTable.recipe
+    //val recipeImages by RecipeImageEntity referrersOn RecipeImageTable.recipe
 }
 
 fun RecipeEntity.toRecipe() = Recipe(
@@ -25,3 +27,10 @@ fun RecipeEntity.toRecipe() = Recipe(
     ingredients.map{it.toIngredient()},
             instructions.map{it.toInstruction()}
 )
+
+fun RecipeEntity.toRecipeResponse() = RecipeResponse(
+    id.value.toLong(),
+    title,
+    ingredients.map { it.toIngredient() },
+    instructions.map { it.toInstruction() },
+   )
