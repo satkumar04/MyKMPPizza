@@ -1,1 +1,1 @@
-web: java -jar backend/build/libs/publish.jar
+web: java -jar ./backend/build/libs/publish.jar
