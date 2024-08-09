@@ -52,7 +52,6 @@ internal class LocalSourceImpl(application: Application) : LocalSource {
                 InstructionTable
             )
         }
-
     }
     override suspend fun getPizza(): String = withContext(dispatcher) {
         "Pizza!"
