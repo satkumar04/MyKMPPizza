@@ -4,22 +4,15 @@ import com.example.backend.model.Ingredient
 import com.example.backend.model.Instruction
 import com.example.backend.model.Recipe
 import com.example.backend.storage.exposed.ingridient.IngredientEntity
-import com.example.backend.storage.exposed.ingridient.IngredientTable
 import com.example.backend.storage.exposed.instruction.InstructionEntity
-import com.example.backend.storage.exposed.instruction.InstructionTable
 import com.example.backend.storage.exposed.recipe.RecipeEntity
-import com.example.backend.storage.exposed.recipe.RecipeTable
 import com.example.backend.storage.exposed.recipe.toRecipe
-import com.zaxxer.hikari.HikariConfig
-import com.zaxxer.hikari.HikariDataSource
 import io.ktor.server.application.Application
 import io.ktor.server.application.log
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.ObsoleteCoroutinesApi
 import kotlinx.coroutines.newFixedThreadPoolContext
 import kotlinx.coroutines.withContext
-import org.jetbrains.exposed.sql.Database
-import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.transaction
 import kotlin.coroutines.CoroutineContext
 
@@ -30,29 +23,29 @@ internal class LocalSourceImpl(application: Application) : LocalSource {
     init {
         val config = application.environment.config.config("database")
         val url = System.getenv("JDBC_DATABASE_URL")
-        //val driver = config.property("driver").getString()
-        val driver = ""
+        val driver = config.property("driver").getString()
+        //val driver = ""
         val poolSize = config.property("poolSize").getString().toInt()
         application.log.info("Connecting to db at $url")
 
 
         dispatcher = newFixedThreadPoolContext(poolSize, "database-pool")
-        val hikariConfig = HikariConfig().apply {
-            jdbcUrl = url
-            maximumPoolSize = poolSize
-            driverClassName = driver
-            validate()
-        }
-
-        Database.connect(HikariDataSource(hikariConfig))
-
-        transaction {
-            SchemaUtils.createMissingTablesAndColumns(
-                RecipeTable,
-                IngredientTable,
-                InstructionTable
-            )
-        }
+//        val hikariConfig = HikariConfig().apply {
+//            jdbcUrl = url
+//            maximumPoolSize = poolSize
+//            driverClassName = driver
+//            validate()
+//        }
+//
+//        Database.connect(HikariDataSource(hikariConfig))
+//
+//        transaction {
+//            SchemaUtils.createMissingTablesAndColumns(
+//                RecipeTable,
+//                IngredientTable,
+//                InstructionTable
+//            )
+//        }
 
     }
     override suspend fun getPizza(): String = withContext(dispatcher) {
