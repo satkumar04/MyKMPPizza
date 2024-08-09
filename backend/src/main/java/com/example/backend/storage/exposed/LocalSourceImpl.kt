@@ -3,6 +3,9 @@ package com.example.backend.storage.exposed
 import com.example.backend.model.Ingredient
 import com.example.backend.model.Instruction
 import com.example.backend.model.Recipe
+import com.example.backend.storage.aws.FileStorage
+import com.example.backend.storage.exposed.images.RecipeImageEntity
+import com.example.backend.storage.exposed.images.RecipeImageTable
 import com.example.backend.storage.exposed.ingridient.IngredientEntity
 import com.example.backend.storage.exposed.ingridient.IngredientTable
 import com.example.backend.storage.exposed.instruction.InstructionEntity
@@ -21,10 +24,11 @@ import kotlinx.coroutines.withContext
 import org.jetbrains.exposed.sql.Database
 import org.jetbrains.exposed.sql.SchemaUtils
 import org.jetbrains.exposed.sql.transactions.transaction
+import java.io.File
 import kotlin.coroutines.CoroutineContext
 
 @OptIn(ObsoleteCoroutinesApi::class, DelicateCoroutinesApi::class)
-internal class LocalSourceImpl(application: Application) : LocalSource {
+internal class LocalSourceImpl(private val fileStorage: FileStorage,application: Application) : LocalSource {
     private val dispatcher: CoroutineContext
 
     init {
@@ -45,11 +49,20 @@ internal class LocalSourceImpl(application: Application) : LocalSource {
 
         Database.connect(HikariDataSource(hikariConfig))
 
+//        transaction {
+//            SchemaUtils.createMissingTablesAndColumns(
+//                RecipeTable,
+//                IngredientTable,
+//                InstructionTable
+//            )
+//        }
+
         transaction {
             SchemaUtils.createMissingTablesAndColumns(
                 RecipeTable,
                 IngredientTable,
-                InstructionTable
+                InstructionTable,
+                RecipeImageTable
             )
         }
     }
@@ -111,6 +124,18 @@ internal class LocalSourceImpl(application: Application) : LocalSource {
         }
     }
 
+    override suspend fun saveImage(recipeId: Long, image: File) {
+        withContext(dispatcher) {
+            val imageUrl = fileStorage.save(image)
+            transaction {
+                val recipe = RecipeEntity[recipeId.toInt()]
+                RecipeImageEntity.new {
+                    this.image = imageUrl
+                    this.recipe = recipe
+                }
+            }
+        }
+    }
 
 
 }

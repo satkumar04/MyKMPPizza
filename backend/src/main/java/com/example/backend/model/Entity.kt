@@ -5,7 +5,8 @@ data class Recipe(
     val id: Long = 0,
     val title: String,
     val ingredients: List<Ingredient>,
-    val instructions: List<Instruction>
+    val instructions: List<Instruction>,
+    val images: List<RecipeImage>
 )
 @Serializable
 data class Ingredient(
@@ -22,6 +23,7 @@ data class Instruction(
 )
 
 
+@Serializable
 data class RecipeImage(
     val id: Long? = 0,
     val image: String

@@ -42,6 +42,8 @@ dependencies {
     implementation(Versions.Jvm.SERIALIZE)
     implementation(libs.ktor.client.content.negotiation)
     implementation("io.ktor:ktor-serialization-kotlinx-json:$KTOR_VERSION")
+    implementation(platform(Versions.Jvm.AWS_JAVA_SDK))
+    implementation(Versions.Jvm.AWS_S3)
 }
 
 tasks.withType<ShadowJar> {
