@@ -1,1 +1,0 @@
-web: java -jar ./backend/build/libs/publish.jar
