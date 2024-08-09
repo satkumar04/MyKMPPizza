@@ -30,7 +30,8 @@ internal class LocalSourceImpl(application: Application) : LocalSource {
     init {
         val config = application.environment.config.config("database")
         val url = System.getenv("JDBC_DATABASE_URL")
-        val driver = config.property("driver").getString()
+        //val driver = config.property("driver").getString()
+        val driver = "org.postgresql.Driver"
         val poolSize = config.property("poolSize").getString().toInt()
         application.log.info("Connecting to db at $url")
 
