@@ -1,8 +1,6 @@
 package com.example.backend.storage.exposed
 
-import com.example.backend.model.Ingredient
-import com.example.backend.model.Instruction
-import com.example.backend.model.Recipe
+
 import com.example.backend.storage.aws.FileStorage
 import com.example.backend.storage.exposed.images.RecipeImageEntity
 import com.example.backend.storage.exposed.images.RecipeImageTable
@@ -13,6 +11,9 @@ import com.example.backend.storage.exposed.instruction.InstructionTable
 import com.example.backend.storage.exposed.recipe.RecipeEntity
 import com.example.backend.storage.exposed.recipe.RecipeTable
 import com.example.backend.storage.exposed.recipe.toRecipe
+import com.example.mypizzakmp.model.Ingredient
+import com.example.mypizzakmp.model.Instruction
+import com.example.mypizzakmp.model.Recipe
 import com.zaxxer.hikari.HikariConfig
 import com.zaxxer.hikari.HikariDataSource
 import io.ktor.server.application.Application

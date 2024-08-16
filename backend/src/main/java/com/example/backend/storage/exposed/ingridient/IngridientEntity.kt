@@ -1,7 +1,8 @@
 package com.example.backend.storage.exposed.ingridient
 
-import com.example.backend.model.Ingredient
+
 import com.example.backend.storage.exposed.recipe.RecipeEntity
+import com.example.mypizzakmp.model.Ingredient
 import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
 import org.jetbrains.exposed.dao.id.EntityID

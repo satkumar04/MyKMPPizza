@@ -1,8 +1,9 @@
 package com.example.backend.storage.exposed
 
-import com.example.backend.model.Ingredient
-import com.example.backend.model.Instruction
-import com.example.backend.model.Recipe
+
+import com.example.mypizzakmp.model.Ingredient
+import com.example.mypizzakmp.model.Instruction
+import com.example.mypizzakmp.model.Recipe
 import java.io.File
 
 internal interface LocalSource {

@@ -1,7 +1,7 @@
 package com.example.backend.storage.exposed.instruction
 
-import com.example.backend.model.Instruction
 import com.example.backend.storage.exposed.recipe.RecipeEntity
+import com.example.mypizzakmp.model.Instruction
 import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
 import org.jetbrains.exposed.dao.id.EntityID

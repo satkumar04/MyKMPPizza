@@ -1,7 +1,6 @@
 package com.example.backend.storage.exposed.recipe
 
-import com.example.backend.model.Recipe
-import com.example.backend.model.RecipeResponse
+
 import com.example.backend.storage.exposed.images.RecipeImageEntity
 import com.example.backend.storage.exposed.images.RecipeImageTable
 import com.example.backend.storage.exposed.images.toRecipeImage
@@ -11,6 +10,8 @@ import com.example.backend.storage.exposed.ingridient.toIngredient
 import com.example.backend.storage.exposed.instruction.InstructionEntity
 import com.example.backend.storage.exposed.instruction.InstructionTable
 import com.example.backend.storage.exposed.instruction.toInstruction
+import com.example.mypizzakmp.model.Recipe
+import com.example.mypizzakmp.model.RecipeResponse
 import org.jetbrains.exposed.dao.IntEntity
 import org.jetbrains.exposed.dao.IntEntityClass
 import org.jetbrains.exposed.dao.id.EntityID

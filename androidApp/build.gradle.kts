@@ -45,4 +45,13 @@ dependencies {
     implementation(libs.compose.material3)
     implementation(libs.androidx.activity.compose)
     debugImplementation(libs.compose.ui.tooling)
+    implementation(Versions.Android.COMPOSE_UI)
+    implementation(Versions.Android.COMPOSE_GRAPHICS)
+    implementation(Versions.Android.COMPOSE_TOOLING)
+    implementation(Versions.Android.COMPOSE_FOUNDATION)
+    implementation(Versions.Android.COMPOSE_MATERIAL)
+    implementation(Versions.Android.COMPOSE_NAVIGATION)
+    implementation(Versions.Android.COMPOSE_ACTIVITY)
+    implementation(Versions.Android.MATERIAL_COMPONENTS)
+    implementation(Versions.Android.KOIN_ANDROID_MAIN)
 }

@@ -22,6 +22,7 @@ plugins {
 
 dependencies {
     implementation(kotlin("stdlib"))
+    implementation(project(":shared"))
     implementation(Versions.Jvm.KTOR_CLIENT_APACHE)
     implementation(Versions.Jvm.KTOR_SERIALIZATION)
     implementation(Versions.Jvm.KTOR_SERVER_CONTENT_NEGOTIATION)

@@ -1,5 +1,13 @@
-package com.example.backend.model
+package com.example.mypizzakmp.model
 import kotlinx.serialization.Serializable
+
+@Serializable
+data class RecipeRequest(
+    val id: Long? = 0,
+    val title: String,
+    val ingredients: List<Ingredient>,
+    val instructions: List<Instruction>
+)
 @Serializable
 data class Recipe(
     val id: Long = 0,
